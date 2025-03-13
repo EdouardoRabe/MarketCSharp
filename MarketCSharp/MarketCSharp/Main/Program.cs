@@ -1,13 +1,17 @@
+using System;
+using System.Windows.Forms;
+using MarketCSharp.app;
 
 namespace MarketCSharp.Main
 {
-    public static class Program
+    static class Program
     {
         [STAThread]
         static void Main()
         {
-            ApplicationConfiguration.Initialize();
-            Application.Run(new Form1());
+            Application.EnableVisualStyles();
+            Application.SetCompatibleTextRenderingDefault(false);
+            Application.Run(new MarketApp());
         }
     }
 }

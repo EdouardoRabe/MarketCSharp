@@ -6,9 +6,9 @@ namespace MarketCSharp.Repository
     public class Connexion
     {
         private static string driver = "{Microsoft Access Driver (*.mdb, *.accdb)}";
-        private static string databasePath = @"D:\ITU\Lecon\S4\Prog\Market\Base\base.accdb";
+        private static string databasePath = @"D:\ITU\Lecon\S4\Prog\MarketCSharp\MarketCSharp\MarketCSharp\Base\base.accdb";
 
-        public static OleDbConnection getConnexion()
+        public static OleDbConnection GetConnexion()
         {
             try
             {

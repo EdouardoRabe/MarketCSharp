@@ -130,7 +130,7 @@ namespace MarketCSharp.app
             _insertMarketPanel.Hide();
             _insertBoxPanel.Hide();
             _paymentPanel.Show();
-            _paymentPanel.BringToFront();
+            _paymentPanel.BringToFront();                     
         }
 
         private void ShowInsertMarket(object sender, EventArgs e)
@@ -153,16 +153,12 @@ namespace MarketCSharp.app
 
         private void InitHomePage()
         {
-            // Nettoyer le panel
             _homePanel.Controls.Clear();
-            
-            // Créer un panel pour le titre et la sélection de date en haut
             Panel headerPanel = new Panel();
             headerPanel.Dock = DockStyle.Top;
             headerPanel.Height = 100;
             headerPanel.Padding = new Padding(10);
             _homePanel.Controls.Add(headerPanel);
-            
             _titleLabel = new Label
             {
                 Text = "Situation de Marché au mois de",
@@ -171,8 +167,6 @@ namespace MarketCSharp.app
                 Location = new System.Drawing.Point(10, 10)
             };
             headerPanel.Controls.Add(_titleLabel);
-            
-            // Panel pour la sélection de date
             Panel datePanel = new Panel
             {
                 Location = new System.Drawing.Point(10, 50),
@@ -199,7 +193,7 @@ namespace MarketCSharp.app
                 {
                     _yearMonthComboBox.SelectedItem = _yearMonthTextBox.Text;
                 }
-                else if (_yearMonthTextBox.Text.Length == 7) // Format YYYY-MM
+                else if (_yearMonthTextBox.Text.Length == 7)
                 {
                     if (!_yearMonthComboBox.Items.Contains(_yearMonthTextBox.Text))
                     {
@@ -222,34 +216,22 @@ namespace MarketCSharp.app
             };
             _validateButton.Click += new EventHandler(ValidateDate);
             datePanel.Controls.Add(_validateButton);
-            
-            // Panel pour le canvas des marchés - Utiliser un Panel au lieu d'un PictureBox
             _canvasPanel = new Panel
             {
                 Dock = DockStyle.Fill,
                 BackColor = System.Drawing.Color.White,
-                AutoScroll = true // Permet de scroller si le contenu est plus grand que le panel
+                AutoScroll = true 
             };
             _homePanel.Controls.Add(_canvasPanel);
-            
-            // Charger les marchés
             _markets = Market.GetMarkets(_conn);
-            
-            // Mettre à jour le titre
             UpdateTitle(null, null);
-            
-            // Afficher les marchés
             DisplayMarkets();
         }
 
         private void InitPaymentPage()
         {
-            // Nettoyer le panel
             _paymentPanel.Controls.Clear();
-            
-            // Layout principal avec padding
             _paymentPanel.Padding = new Padding(20);
-            
             Label paymentLabel = new Label
             {
                 Text = "Faire un paiement",
@@ -258,8 +240,6 @@ namespace MarketCSharp.app
                 Location = new System.Drawing.Point(20, 20)
             };
             _paymentPanel.Controls.Add(paymentLabel);
-
-            // Tableau pour organiser les contrôles
             TableLayoutPanel table = new TableLayoutPanel
             {
                 Location = new System.Drawing.Point(20, 70),
@@ -342,10 +322,7 @@ namespace MarketCSharp.app
 
         private void InitInsertMarketPage()
         {
-            // Nettoyer le panel
             _insertMarketPanel.Controls.Clear();
-            
-            // Layout principal avec padding
             _insertMarketPanel.Padding = new Padding(20);
             
             Label insertMarketLabel = new Label
@@ -356,8 +333,6 @@ namespace MarketCSharp.app
                 Location = new System.Drawing.Point(20, 20)
             };
             _insertMarketPanel.Controls.Add(insertMarketLabel);
-
-            // Tableau pour organiser les contrôles
             TableLayoutPanel table = new TableLayoutPanel
             {
                 Location = new System.Drawing.Point(20, 70),
@@ -369,7 +344,6 @@ namespace MarketCSharp.app
             table.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 30F));
             table.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 70F));
             _insertMarketPanel.Controls.Add(table);
-
             Label marketLongLabel = new Label
             {
                 Text = "Longueur:",
@@ -377,14 +351,12 @@ namespace MarketCSharp.app
                 Anchor = AnchorStyles.Left | AnchorStyles.Right
             };
             table.Controls.Add(marketLongLabel, 0, 0);
-
             _marketLongEntry = new TextBox
             {
                 Width = 200,
                 Anchor = AnchorStyles.Left | AnchorStyles.Right
             };
             table.Controls.Add(_marketLongEntry, 1, 0);
-
             Label marketLargLabel = new Label
             {
                 Text = "Largeur:",
@@ -392,14 +364,12 @@ namespace MarketCSharp.app
                 Anchor = AnchorStyles.Left | AnchorStyles.Right
             };
             table.Controls.Add(marketLargLabel, 0, 1);
-
             _marketLargEntry = new TextBox
             {
                 Width = 200,
                 Anchor = AnchorStyles.Left | AnchorStyles.Right
             };
             table.Controls.Add(_marketLargEntry, 1, 1);
-
             Label marketXLabel = new Label
             {
                 Text = "X:",
@@ -407,14 +377,12 @@ namespace MarketCSharp.app
                 Anchor = AnchorStyles.Left | AnchorStyles.Right
             };
             table.Controls.Add(marketXLabel, 0, 2);
-
             _marketXEntry = new TextBox
             {
                 Width = 200,
                 Anchor = AnchorStyles.Left | AnchorStyles.Right
             };
             table.Controls.Add(_marketXEntry, 1, 2);
-
             Label marketYLabel = new Label
             {
                 Text = "Y:",
@@ -437,14 +405,12 @@ namespace MarketCSharp.app
                 Anchor = AnchorStyles.Left | AnchorStyles.Right
             };
             table.Controls.Add(marketNomMarketLabel, 0, 4);
-
             _marketNomMarketEntry = new TextBox
             {
                 Width = 200,
                 Anchor = AnchorStyles.Left | AnchorStyles.Right
             };
             table.Controls.Add(_marketNomMarketEntry, 1, 4);
-
             Button insertMarketButton = new Button
             {
                 Text = "Insérer Market",
@@ -461,12 +427,8 @@ namespace MarketCSharp.app
 
         private void InitInsertBoxPage()
         {
-            // Nettoyer le panel
             _insertBoxPanel.Controls.Clear();
-            
-            // Layout principal avec padding
             _insertBoxPanel.Padding = new Padding(20);
-            
             Label insertBoxLabel = new Label
             {
                 Text = "Insérer un box",
@@ -475,8 +437,6 @@ namespace MarketCSharp.app
                 Location = new System.Drawing.Point(20, 20)
             };
             _insertBoxPanel.Controls.Add(insertBoxLabel);
-
-            // Tableau pour organiser les contrôles
             TableLayoutPanel table = new TableLayoutPanel
             {
                 Location = new System.Drawing.Point(20, 70),
@@ -488,7 +448,6 @@ namespace MarketCSharp.app
             table.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 30F));
             table.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 70F));
             _insertBoxPanel.Controls.Add(table);
-
             Label idMarketLabel = new Label
             {
                 Text = "ID Market:",
@@ -496,7 +455,6 @@ namespace MarketCSharp.app
                 Anchor = AnchorStyles.Left | AnchorStyles.Right
             };
             table.Controls.Add(idMarketLabel, 0, 0);
-
             _idMarketSelect = new ComboBox
             {
                 Width = 200,
@@ -510,7 +468,6 @@ namespace MarketCSharp.app
             if (_idMarketSelect.Items.Count > 0)
                 _idMarketSelect.SelectedIndex = 0;
             table.Controls.Add(_idMarketSelect, 1, 0);
-
             Label boxNumLabel = new Label
             {
                 Text = "Numéro:",
@@ -518,14 +475,12 @@ namespace MarketCSharp.app
                 Anchor = AnchorStyles.Left | AnchorStyles.Right
             };
             table.Controls.Add(boxNumLabel, 0, 1);
-
             _boxNumEntry = new TextBox
             {
                 Width = 200,
                 Anchor = AnchorStyles.Left | AnchorStyles.Right
             };
             table.Controls.Add(_boxNumEntry, 1, 1);
-
             Label boxLongLabel = new Label
             {
                 Text = "Longueur:",
@@ -533,7 +488,6 @@ namespace MarketCSharp.app
                 Anchor = AnchorStyles.Left | AnchorStyles.Right
             };
             table.Controls.Add(boxLongLabel, 0, 2);
-
             _boxLongEntry = new TextBox
             {
                 Width = 200,
@@ -548,14 +502,12 @@ namespace MarketCSharp.app
                 Anchor = AnchorStyles.Left | AnchorStyles.Right
             };
             table.Controls.Add(boxLargLabel, 0, 3);
-
             _boxLargEntry = new TextBox
             {
                 Width = 200,
                 Anchor = AnchorStyles.Left | AnchorStyles.Right
             };
             table.Controls.Add(_boxLargEntry, 1, 3);
-
             Label boxXLabel = new Label
             {
                 Text = "X:",
@@ -563,14 +515,12 @@ namespace MarketCSharp.app
                 Anchor = AnchorStyles.Left | AnchorStyles.Right
             };
             table.Controls.Add(boxXLabel, 0, 4);
-
             _boxXEntry = new TextBox
             {
                 Width = 200,
                 Anchor = AnchorStyles.Left | AnchorStyles.Right
             };
             table.Controls.Add(_boxXEntry, 1, 4);
-
             Label boxYLabel = new Label
             {
                 Text = "Y:",
@@ -578,14 +528,12 @@ namespace MarketCSharp.app
                 Anchor = AnchorStyles.Left | AnchorStyles.Right
             };
             table.Controls.Add(boxYLabel, 0, 5);
-
             _boxYEntry = new TextBox
             {
                 Width = 200,
                 Anchor = AnchorStyles.Left | AnchorStyles.Right
             };
             table.Controls.Add(_boxYEntry, 1, 5);
-
             Button insertBoxButton = new Button
             {
                 Text = "Insérer Box",
@@ -603,8 +551,6 @@ namespace MarketCSharp.app
         private void ValidateDate(object sender, EventArgs e)
         {
             string yearMonth = _yearMonthTextBox.Text;
-            
-            // Vérifier que la date est au format YYYY-MM
             if (yearMonth.Length == 7 && yearMonth[4] == '-')
             {
                 if (!_yearMonthComboBox.Items.Contains(yearMonth))
@@ -623,12 +569,21 @@ namespace MarketCSharp.app
 
         private void DisplayMarkets()
         {
+            Dictionary<string, double>debts = CalculateAllDebts(_yearMonthComboBox.SelectedItem.ToString());
+            string debtsMessage = "";
+            foreach (KeyValuePair<string, double> debt in debts)
+            {
+                debtsMessage += $"Owner {debt.Key} has a debt of {debt.Value}\n";
+            }
+
+            MessageBox.Show(debtsMessage, "Debts Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
             DisplayLegends();
             
             if (_markets != null && _markets.Count > 0)
             {
                 foreach (Market market in _markets)
                 {
+         
                     DisplayMarket(market);
                 }
             }
@@ -654,10 +609,7 @@ namespace MarketCSharp.app
                 BorderStyle = BorderStyle.FixedSingle
             };
             _canvasPanel.Controls.Add(legendPanel);
-
             int legendSpacing = 200;
-            
-            // Légende pour le pourcentage payé
             Panel paidSample = new Panel
             {
                 Size = new System.Drawing.Size(20, 20),
@@ -666,7 +618,6 @@ namespace MarketCSharp.app
                 BorderStyle = BorderStyle.FixedSingle
             };
             legendPanel.Controls.Add(paidSample);
-            
             Label legendPaid = new Label
             {
                 Text = "Pourcentage payé",
@@ -674,8 +625,6 @@ namespace MarketCSharp.app
                 AutoSize = true
             };
             legendPanel.Controls.Add(legendPaid);
-            
-            // Légende pour le pourcentage non payé
             Panel unpaidSample = new Panel
             {
                 Size = new System.Drawing.Size(20, 20),
@@ -684,7 +633,6 @@ namespace MarketCSharp.app
                 BorderStyle = BorderStyle.FixedSingle
             };
             legendPanel.Controls.Add(unpaidSample);
-            
             Label legendUnpaid = new Label
             {
                 Text = "Pourcentage non payé",
@@ -692,8 +640,6 @@ namespace MarketCSharp.app
                 AutoSize = true
             };
             legendPanel.Controls.Add(legendUnpaid);
-            
-            // Légende pour non loué
             Panel notRentedSample = new Panel
             {
                 Size = new System.Drawing.Size(20, 20),
@@ -702,7 +648,6 @@ namespace MarketCSharp.app
                 BorderStyle = BorderStyle.FixedSingle
             };
             legendPanel.Controls.Add(notRentedSample);
-            
             Label legendNotRented = new Label
             {
                 Text = "Non loué",
@@ -719,8 +664,6 @@ namespace MarketCSharp.app
                 MessageBox.Show("Veuillez sélectionner une année et un mois.", "Erreur", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
-
-            // Récupérer et afficher les boxes pour ce marché
             List<Box> boxes = market.GetBoxs(_conn);
             if (boxes != null && boxes.Count > 0)
             {
@@ -729,13 +672,10 @@ namespace MarketCSharp.app
                     DisplayBox(box);
                 }
             }
-
-            int x = (int)(market.GetX() * 20) + 50; // Ajouter un offset pour éviter les bords
-            int y = (int)(market.GetY() * 20) + 50; // Ajouter un offset pour éviter les bords
+            int x = (int)(market.GetX() * 20) + 50;
+            int y = (int)(market.GetY() * 20) + 50; 
             int longueur = (int)(market.GetLongueur() * 10);
             int largeur = (int)(market.GetLargeur() * 10);
-
-            // Créer un panel pour représenter le marché
             Panel marketPanel = new Panel
             {
                 Location = new System.Drawing.Point(x, y),
@@ -744,8 +684,6 @@ namespace MarketCSharp.app
                 BackColor = Color.Transparent
             };
             _canvasPanel.Controls.Add(marketPanel);
-
-            // Ajouter le nom du marché
             Label marketLabel = new Label
             {
                 Text = market.GetNomMarket(),
@@ -837,38 +775,37 @@ namespace MarketCSharp.app
             }
         }
 
-        private Dictionary<int, double> CalculateAllDebts(string yearMonth)
+        private Dictionary<string, double> CalculateAllDebts(string yearMonth)
         {
             try
             {
                 List<Owner> owners = MarketCSharp.tool.Owner.GetOwners(_conn);
-                Console.WriteLine(owners);
-                Dictionary<int, double> debts = new Dictionary<int, double>();
+                Dictionary<string, double> debts = new Dictionary<string, double>();
+
                 foreach (Owner owner in owners)
-                {
+                {   
                     List<Box> ownerBoxes = MarketCSharp.material.Box.GetBoxByIdOwner(_conn, owner.GetIdOwner());
                     List<Location> ownerLocations = MarketCSharp.tool.Location.GetLocationByOwner(_conn, owner.GetIdOwner());
-
                     if (ownerBoxes.Count == 0)
                     {
-                        debts[owner.GetIdOwner()] = 0;
+                        debts[owner.GetName()] = 0;
                         continue;
                     }
-
                     double totalDebt = 0;
-                    DateTime yearMonthDate = DateTime.ParseExact(yearMonth, "yyyy-MM", null);
-
                     foreach (Location location in ownerLocations)
                     {
                         Box box = Box.GetBoxById(_conn, location.GetIdBox());
                         if (box != null)
                         {
                             DateTime currentDate = location.GetDebut();
-                            while (currentDate <= yearMonthDate && (location.GetFin() == null || currentDate <= location.GetFin()))
+                            DateTime yearMonthDate = DateTime.ParseExact(yearMonth, "yyyy-MM", null);
+
+                            while (currentDate.ToString("yyyy-MM").CompareTo(yearMonth) <= 0 && (location.GetFin() == null || currentDate <= location.GetFin()))
                             {
                                 string yearMonthCurrent = currentDate.ToString("yyyy-MM");
                                 double rent = box.CalculRent(_conn, yearMonthCurrent);
                                 Paiement paiement = Paiement.GetPaiement(_conn, yearMonthCurrent, box.GetIdBox());
+
                                 if (paiement != null)
                                 {
                                     double remainingRent = rent - paiement.GetMontant();
@@ -881,12 +818,13 @@ namespace MarketCSharp.app
                                 {
                                     totalDebt += rent;
                                 }
+
                                 currentDate = currentDate.AddMonths(1);
                             }
                         }
                     }
 
-                    debts[owner.GetIdOwner()] = totalDebt;
+                    debts[owner.GetName()] = totalDebt;
                 }
 
                 return debts;
@@ -894,7 +832,7 @@ namespace MarketCSharp.app
             catch (Exception e)
             {
                 MessageBox.Show($"Error calculating debts: {e.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return new Dictionary<int, double>();
+                return new Dictionary<string, double>();
             }
         }
 

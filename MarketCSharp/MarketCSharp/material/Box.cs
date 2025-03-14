@@ -112,31 +112,32 @@ namespace MarketCSharp.material
             return boxs;
         }
 
-        public static List<Box> GetBoxByIdOwner(OleDbConnection conn, int idowner)
+        public static List<Box> GetBoxByIdOwner(OleDbConnection conn, int idOwner)
         {
-            List<Box> boxs = new List<Box>();
-            string query = "SELECT * FROM boxs WHERE idowner = ?";
-            using (OleDbCommand cmd = new OleDbCommand(query, conn))
+            List<Location> locations = Location.GetLocationByOwner(conn, idOwner);
+            if (locations == null || locations.Count == 0)
             {
-                cmd.Parameters.AddWithValue("@idowner", idowner);
-                using (OleDbDataReader reader = cmd.ExecuteReader())
-                {
-                    while (reader.Read())
-                    {
-                        int idBox = reader.GetInt32(0);
-                        int idMarket = reader.GetInt32(1);
-                        int num = reader.GetInt32(2);
-                        double longueur = reader.IsDBNull(3) ? 0 : reader.GetDouble(3);
-                        double largeur = reader.IsDBNull(4) ? 0 : reader.GetDouble(4);
-                        int x = reader.IsDBNull(5) ? 0 : reader.GetInt32(5);
-                        int y = reader.IsDBNull(6) ? 0 : reader.GetInt32(6);
+                return new List<Box>();
+            }
 
-                        boxs.Add(new Box(idBox, idMarket, num, longueur, largeur, x, y));
-                    }
+            List<int> boxIds = new List<int>();
+            foreach (Location location in locations)
+            {
+                boxIds.Add(location.GetIdBox());
+            }
+
+            List<Box> boxs = new List<Box>();
+            foreach (int boxId in boxIds)
+            {
+                Box box = Box.GetBoxById(conn, boxId);
+                if (box != null)
+                {
+                    boxs.Add(box);
                 }
             }
+
             return boxs;
-        }
+        }        
 
         public double CalculRent(OleDbConnection conn, string yearMonth)
         {
